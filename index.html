@@ -149,18 +149,24 @@
   }
 
   function fitText() {
-    var availH = card.clientHeight - 140 - (authorEl.offsetHeight+40);
-    var availW = card.clientWidth  - 200;
-    requestEl.style.width   = availW+'px';
-    requestEl.style.fontSize= '1px';
-    var lo=10, hi=100, best=10;
-    for(var i=0;i<30;i++){
-      var mid=(lo+hi)/2;
-      requestEl.style.fontSize=mid+'px';
-      if(requestEl.scrollHeight<=availH){best=mid;lo=mid+0.5;}
-      else{hi=mid-0.5;}
+    var paddingV = card.clientHeight * 0.18;
+    var paddingH = card.clientWidth  * 0.12;
+    var availH = card.clientHeight - paddingV - (authorEl.offsetHeight + 48);
+    var availW = card.clientWidth  - paddingH;
+    requestEl.style.width    = availW + 'px';
+    requestEl.style.fontSize = '1px';
+    requestEl.style.overflow = 'hidden';
+    var lo = 8, hi = 90, best = 8;
+    for (var i = 0; i < 40; i++) {
+      var mid = (lo + hi) / 2;
+      requestEl.style.fontSize = mid + 'px';
+      if (requestEl.scrollHeight <= availH && requestEl.scrollWidth <= availW) {
+        best = mid; lo = mid + 0.25;
+      } else {
+        hi = mid - 0.25;
+      }
     }
-    requestEl.style.fontSize=Math.min(best*0.92,90)+'px';
+    requestEl.style.fontSize = Math.min(best * 0.88, 85) + 'px';
   }
 
   function showSlide(i) {
